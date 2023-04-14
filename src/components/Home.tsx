@@ -4,6 +4,8 @@ import { SafeAuthKit, Web3AuthAdapter } from "@safe-global/auth-kit";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { CHAIN_NAMESPACES } from "@web3auth/base";
+import { EthersAdapter, SafeFactory } from "@safe-global/protocol-kit";
+import { ethers } from "ethers";
 
 class Home extends Component {
   async componentDidMount(): Promise<void> {
@@ -44,15 +46,34 @@ class Home extends Component {
 
     await safeAuthKit.signIn();
 
-    safeAuthKit.getProvider();
+    const provider = new ethers.providers.Web3Provider(
+      safeAuthKit.getProvider()!
+    );
+    const signer = provider.getSigner(0);
 
-    console.log(safeAuthKit.getProvider());
+    console.log(safeAuthKit.safeAuthData);
+
+    const ethAdapter = new EthersAdapter({
+      ethers,
+      signerOrProvider: signer,
+    }); //3
+
+    const safeFactory = await SafeFactory.create({ ethAdapter }); //4
+
+    // Comment out when you want to deploy safe account
+    // const safeSdk: Safe = await safeFactory.deploySafe({
+    //   safeAccountConfig: {
+    //     threshold: 1,
+    //     owners: [safeAuthKit.safeAuthData?.eoa!],
+    //   },
+    // }); //5
+    // console.log(safeSdk.getAddress());
   }
 
   render() {
     return (
       <div className="Home">
-        <div>ssss</div>
+        <div>Home</div>
       </div>
     );
   }
