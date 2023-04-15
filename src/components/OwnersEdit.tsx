@@ -4,7 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { AppContext } from "./AppContext";
 import OwnerList from "./OwnerList";
-import { Dialog, Overlay, Spinner } from "evergreen-ui";
+import { Button, Dialog, Overlay, Spinner } from "evergreen-ui";
+
+const styles = {
+  display: "flex",
+  flexDirection: "column" as "column",
+  gap: "2em",
+  alignItems: "center",
+};
 
 function OwnersEdit() {
   const navigate = useNavigate();
@@ -54,8 +61,8 @@ function OwnersEdit() {
   };
 
   return (
-    <main>
-      <h1>Owners</h1>
+    <main style={styles}>
+      <h1>Owner Update</h1>
 
       <OwnerList
         owners={owners}
@@ -63,7 +70,7 @@ function OwnersEdit() {
         setOwners={setOwners}
       />
 
-      <button onClick={() => setIsShown(true)}>Update Owners</button>
+      <Button onClick={() => setIsShown(true)}>Update</Button>
       <Dialog
         width={"380px"}
         isShown={isShown}
