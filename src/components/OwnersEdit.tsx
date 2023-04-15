@@ -62,7 +62,7 @@ function OwnersEdit() {
 
   return (
     <main style={styles}>
-      <h1>Owner Update</h1>
+      <h1>Owners</h1>
 
       <OwnerList
         owners={owners}
