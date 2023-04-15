@@ -6,6 +6,9 @@ import ContextDemo from "./components/ContextDemo";
 import Demo2 from "./components/Demo2";
 import { AppContextProvider } from "./components/AppContext";
 
+import Login from "./components/Login";
+import AccountAction from "./components/AccountAction";
+
 import "./App.css";
 
 function App() {
@@ -16,6 +19,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/context-demo" element={<ContextDemo />} />
           <Route path="/demo2" element={<Demo2 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/action" element={<AccountAction />} />
+          {/* <Route path="/create" element={} />
+          <Route path="/contract" element={} />
+          <Route path="/transfer" element={} />
+          <Route path="/change-owner" element={} /> */}
         </Routes>
       </BrowserRouter>
     </AppContextProvider>
