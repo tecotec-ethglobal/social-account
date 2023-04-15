@@ -9,20 +9,18 @@ import Login from "./components/Login";
 import AccountAction from "./components/AccountAction";
 import AccountCreation from "./components/AccountCreation";
 import SafeAccount from "./components/SafeAccount";
-import PrivateRouteWrapper from "./components/PrivateRouterWrapper";
+import LoggedInLayout from "./components/LoggedInLayout";
 import Transfer from "./components/Transfer";
+import LoggedOutLayout from "./components/LoggedOutLayout";
 
 import "./App.css";
-import Header from "./components/Header";
 
 function App() {
   return (
     <AppContextProvider>
       <BrowserRouter>
-        <Header />
         <Routes>
-          {/* ログイン必須 */}
-          <Route element={<PrivateRouteWrapper />}>
+          <Route element={<LoggedInLayout />}>
             <Route path="/action" element={<AccountAction />} />
             <Route path="/create" element={<AccountCreation />} />
             <Route path="/safe-account/:safeAddress" element={<SafeAccount />} />
@@ -30,9 +28,11 @@ function App() {
             {/* <Route path="/change-owner" element={} /> */}
           </Route>
 
-          <Route path="/context-demo" element={<ContextDemo />} />
-          <Route path="/demo2" element={<Demo2 />} />
-          <Route path="/" element={<Login />} />
+          <Route element={<LoggedOutLayout />}>
+            <Route path="/context-demo" element={<ContextDemo />} />
+            <Route path="/demo2" element={<Demo2 />} />
+            <Route path="/" element={<Login />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AppContextProvider>

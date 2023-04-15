@@ -13,8 +13,7 @@ const styles = {
   outer: {
     display: "flex",
     flexFlow: "column",
-    height: "100%",
-    minHeight: "100vh",
+    gap: ".5em",
   },
 };
 
