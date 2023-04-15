@@ -60,7 +60,7 @@ function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
 
       <div className="add-owner" style={ownerListStyles.addOwner}>
         <TextInput value={newOwner} onChange={newOwnerInputHandler} />
-        <Button onClick={addOwner}>Add Owner</Button>
+        <Button onClick={addOwner}>Add</Button>
       </div>
     </div>
   );
