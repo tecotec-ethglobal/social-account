@@ -88,8 +88,8 @@ function SafeAccount() {
           <div>Owners</div>
         </div>
       </div>
-      <Table minWidth={"350px"}>
-        <Table.VirtualBody minHeight={400}>
+      <Table minWidth={"360px"}>
+        <Table.VirtualBody minHeight={300}>
           {transactions.map((t) => {
             let txHash;
             let kind;
