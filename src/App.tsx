@@ -12,6 +12,7 @@ import SafeAccount from "./components/SafeAccount";
 import LoggedInLayout from "./components/LoggedInLayout";
 import Transfer from "./components/Transfer";
 import LoggedOutLayout from "./components/LoggedOutLayout";
+import OwnersEdit from "./components/OwnersEdit";
 
 import "./App.css";
 
@@ -25,7 +26,7 @@ function App() {
             <Route path="/create" element={<AccountCreation />} />
             <Route path="/safe-account/:safeAddress" element={<SafeAccount />} />
             <Route path="/transfer/:safeAddress" element={<Transfer />} />
-            {/* <Route path="/change-owner" element={} /> */}
+            <Route path="/owners/:safeAddress" element={<OwnersEdit />} />
           </Route>
 
           <Route element={<LoggedOutLayout />}>

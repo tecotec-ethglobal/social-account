@@ -27,7 +27,11 @@ function AccountCreation() {
     <main>
       <h1>Create your account</h1>
 
-      <OwnerList owners={owners} updateOwners={setOwners} />
+      <OwnerList
+        owners={owners}
+        selfAddress={safeAuthKit.safeAuthData?.eoa}
+        setOwners={setOwners}
+      />
 
       <button onClick={deployContract}>Deploy Contract</button>
     </main>

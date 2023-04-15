@@ -1,39 +1,37 @@
 import React, { useState } from "react";
 
 type OwnerListProp = {
-  // 先頭のオーナーは自分であることを想定
-  // つまり owners.length >= 1
   owners: string[];
-  updateOwners: (owners: string[]) => void;
+  selfAddress: string;
+  setOwners: (owners: string[]) => void;
 };
 
-function OwnerList({ owners, updateOwners }: OwnerListProp) {
-  const [self, ...others] = owners;
+function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
   const [newOwner, setNewOwner] = useState("");
-  console.log("Child update!");
 
   const newOwnerInputHandler = (e) => {
     setNewOwner(e.target.value);
   };
   const addOwner = () => {
     if (!newOwner) return;
-    updateOwners([...owners, newOwner]);
+    setOwners([...owners, newOwner]);
     setNewOwner("");
   };
   const removeOwner = (ownerIndex: number) => {
-    owners.splice(ownerIndex, 1);
-    updateOwners([...owners]);
+    const newOwners = [...owners];
+    newOwners.splice(ownerIndex, 1);
+    setOwners(newOwners);
   };
 
   return (
     <div className="owner-list">
       <div className="owners">
-        <SelfOwner address={self} />
-        {others.map((address, idx) => (
-          <OtherOwner
+        {owners.map((address, idx) => (
+          <Owner
             key={address}
             address={address}
-            ownerIndex={idx + 1}
+            ownerIndex={idx}
+            isSelf={address === selfAddress}
             removeOwner={removeOwner}
           />
         ))}
@@ -45,15 +43,15 @@ function OwnerList({ owners, updateOwners }: OwnerListProp) {
   );
 }
 
-type SelfOwnerProp = {
+type OwnerProp = {
   address: string;
-};
-type OtherOwnerProp = {
   ownerIndex: number;
+  isSelf: boolean;
   removeOwner: (ownerIndex: number) => void;
-} & SelfOwnerProp;
+};
+
 const ownerStyle = {
-  selfAndOtherOwner: {
+  owner: {
     display: "flex",
     flexDirection: "row" as "row", // https://github.com/cssinjs/jss/issues/1344
     gap: "1em",
@@ -63,26 +61,18 @@ const ownerStyle = {
   },
 };
 
-function SelfOwner({ address }: SelfOwnerProp) {
+function Owner({ address, ownerIndex, isSelf, removeOwner }: OwnerProp) {
   return (
-    <div className="self-owner" style={ownerStyle.selfAndOtherOwner}>
+    <div className="owner" style={ownerStyle.owner}>
       <span className="you" style={ownerStyle.you}>
-        YOU
+        {isSelf && "YOU"}
       </span>
       <span className="address">{address}</span>
-      <span className="remove"></span>
-    </div>
-  );
-}
-
-function OtherOwner({ address, ownerIndex, removeOwner }: OtherOwnerProp) {
-  return (
-    <div className="other-owner" style={ownerStyle.selfAndOtherOwner}>
-      <span className="you" style={ownerStyle.you}></span>
-      <span className="address">{address}</span>
-      <span className="remove" onClick={() => removeOwner(ownerIndex)}>
-        X
-      </span>
+      {!isSelf && (
+        <span className="remove" onClick={() => removeOwner(ownerIndex)}>
+          X
+        </span>
+      )}
     </div>
   );
 }

@@ -59,7 +59,7 @@ function SafeAccount() {
       </div>
       <div>{balance} GoerliETH</div>
       <button onClick={() => navigate(`/transfer/${safeAddress}`)}>Transfer</button>
-      <button>Owners</button>
+      <button onClick={() => navigate(`/owners/${safeAddress}`)}>Owners</button>
       <ul>
         {transactions.map((t) => {
           if (t.txType === "ETHEREUM_TRANSACTION") {
