@@ -13,7 +13,7 @@ const ownerListStyles = {
     textAlign: "left" as "left", // https://github.com/cssinjs/jss/issues/1344
   },
   owners: {
-    marginBottom: "1em",
+    marginBottom: "1.5em",
     display: "flex",
     flexDirection: "column" as "column",
     gap: "0.5em",
@@ -45,7 +45,7 @@ function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
 
   return (
     <div className="owner-list" style={ownerListStyles.ownerList}>
-      <h4>Owners</h4>
+      <h3>Owners</h3>
       <div className="owners" style={ownerListStyles.owners}>
         {owners.map((address, idx) => (
           <Owner

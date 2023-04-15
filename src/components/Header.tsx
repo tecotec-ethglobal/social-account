@@ -31,6 +31,7 @@ const styles = {
     top: "50%",
     transform: "translateY(-50%)",
     right: "2em",
+    cursor: "pointer",
   },
 };
 
@@ -65,19 +66,25 @@ function Header() {
       {isLoggedIn() ? (
         <Popover
           position={Position.TOP_RIGHT}
-          content={
+          content={({ close }) => (
             <Menu>
               <Menu.Item icon={SwapHorizontalIcon} onClick={toggleChangeAccountDialog}>
                 Change Account
               </Menu.Item>
-              <Menu.Item icon={AddIcon} onClick={addAccount}>
+              <Menu.Item
+                icon={AddIcon}
+                onClick={() => {
+                  addAccount();
+                  close();
+                }}
+              >
                 Add Account
               </Menu.Item>
               <Menu.Item icon={LogOutIcon} onClick={signout}>
                 Signout
               </Menu.Item>
             </Menu>
-          }
+          )}
         >
           <MenuIcon style={styles.menuIcon}></MenuIcon>
         </Popover>

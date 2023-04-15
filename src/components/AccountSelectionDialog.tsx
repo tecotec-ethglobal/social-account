@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import { Dialog, Pane } from "evergreen-ui";
+import { Dialog, IconButton, SelectIcon, Pane } from "evergreen-ui";
 import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "./AppContext";
 import Address from "./Address";
 
 const styles = {
-  color: "black",
+  pane: {
+    color: "black",
+  },
 };
 
 type AccountSelectionDialogProp = {
@@ -19,7 +21,6 @@ function AccountSelectionDialog({ isOpen = false, closeDialog }: AccountSelectio
 
   if (!isOpen) return null;
 
-  // TODO: make it a real dialog
   return (
     <Dialog
       isShown={isOpen}
@@ -29,7 +30,7 @@ function AccountSelectionDialog({ isOpen = false, closeDialog }: AccountSelectio
       hasCancel={false}
       confirmLabel="Cancel"
     >
-      <Pane style={styles}>
+      <Pane style={styles.pane}>
         {safeAuthKit.safeAuthData.safes.map((address: string) => (
           <Account address={address} key={address} closeDialog={closeDialog} />
         ))}
@@ -43,6 +44,11 @@ type AccountProp = {
   closeDialog: () => void;
 };
 
+const style = {
+  display: "flex",
+  justifyContent: "space-between",
+};
+
 function Account({ address, closeDialog }: AccountProp) {
   const navigate = useNavigate();
   const { setContractAddress } = useContext(AppContext);
@@ -54,8 +60,9 @@ function Account({ address, closeDialog }: AccountProp) {
   };
 
   return (
-    <div className="account" onClick={selectAccount}>
+    <div className="account" style={style}>
       <Address address={address} />
+      <IconButton icon={SelectIcon} onClick={selectAccount} />
     </div>
   );
 }
