@@ -15,7 +15,7 @@ class Home extends Component {
       web3AuthNetwork: "testnet",
       chainConfig: {
         chainNamespace: "eip155",
-        chainId: "0xAA36A7",
+        chainId: "0x13881",
       },
     };
 
@@ -24,9 +24,6 @@ class Home extends Component {
     // https://web3auth.io/docs/sdk/web/modal/whitelabel#whitelabeling-while-modal-initialization
     const openloginAdapter = new OpenloginAdapter({
       adapterSettings: {
-        clientId:
-          "BM0Bh_56N1efD3O7Mqw0fg2hOSI3zhS-nv_5xsILiJP7BvoiJ7Rs96JOCc1paXlYd_1AIhFviTduLs4edDGKS0E",
-        network: "testnet", // Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
         uxMode: "popup",
         whiteLabel: {
           name: "Your app Name",
@@ -46,9 +43,7 @@ class Home extends Component {
 
     await safeAuthKit.signIn();
 
-    const provider = new ethers.providers.Web3Provider(
-      safeAuthKit.getProvider()!
-    );
+    const provider = new ethers.providers.Web3Provider(safeAuthKit.getProvider()!);
     const signer = provider.getSigner(0);
 
     console.log(safeAuthKit.safeAuthData);
