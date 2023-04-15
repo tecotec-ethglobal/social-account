@@ -10,6 +10,7 @@ import AccountAction from "./components/AccountAction";
 import AccountCreation from "./components/AccountCreation";
 
 import "./App.css";
+import SafeAccount from "./components/SafeAccount";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/action" element={<AccountAction />} />
           <Route path="/create" element={<AccountCreation />} />
-          {/* <Route path="/contract" element={} /> */}
+          <Route path="/safe-account/:safeAddress" element={<SafeAccount />} />
           {/* <Route path="/transfer" element={} /> */}
           {/* <Route path="/change-owner" element={} /> */}
         </Routes>
