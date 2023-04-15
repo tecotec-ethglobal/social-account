@@ -1,4 +1,4 @@
-# Wallet-app（仮）
+# Social Account
 
 ## Project Overview
 
@@ -7,6 +7,5 @@ We have heavily relied on Safe SDK to implement and deliver account abstraction 
 
 ## Features
 
-- Multi-sig
 - Socail recovery
-- Social onborading from Id providers like Google, facebook etc.
+- Social onborading from Id providers like Google, facebook etc without wallet app.
