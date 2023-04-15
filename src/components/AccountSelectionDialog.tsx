@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
-
+import { Dialog, Pane } from "evergreen-ui";
 import { useNavigate } from "react-router-dom";
+
 import { AppContext } from "./AppContext";
-import Safe from "@safe-global/protocol-kit";
+
+const styles = {
+  color: "black",
+};
 
 type AccountSelectionDialogProp = {
   isOpen: boolean;
@@ -16,15 +20,19 @@ function AccountSelectionDialog({ isOpen = false, closeDialog }: AccountSelectio
 
   // TODO: make it a real dialog
   return (
-    <div className="dialog">
-      <h4>select your account:</h4>
-
-      {safeAuthKit.safeAuthData.safes.map((address: string) => (
-        <Account address={address} key={address} />
-      ))}
-
-      <button onClick={closeDialog}>Close</button>
-    </div>
+    <Dialog
+      isShown={isOpen}
+      title="Select your account"
+      onCloseComplete={closeDialog}
+      hasClose={true}
+      hasCancel={false}
+    >
+      <Pane style={styles}>
+        {safeAuthKit.safeAuthData.safes.map((address: string) => (
+          <Account address={address} key={address} />
+        ))}
+      </Pane>
+    </Dialog>
   );
 }
 

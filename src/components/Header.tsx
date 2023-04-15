@@ -10,6 +10,7 @@ import {
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./AppContext";
+import AccountSelectionDialog from "./AccountSelectionDialog";
 
 const styles = {
   header: {
@@ -35,11 +36,19 @@ const styles = {
 
 function Header() {
   const navigate = useNavigate();
-  const { safeAuthKit, setSigner, setEthAdapter, setContractAddress, setSafeAuthKit, isLoggedIn } =
-    useContext(AppContext);
+  const {
+    safeAuthKit,
+    setSigner,
+    setEthAdapter,
+    setContractAddress,
+    setSafeAuthKit,
+    isLoggedIn,
+    isSelectAccountOpen,
+    setIsSelectAccountOpen,
+  } = useContext(AppContext);
 
-  const changeAccount = () => {
-    navigate("/action");
+  const toggleChangeAccountDialog = () => {
+    setIsSelectAccountOpen(!isSelectAccountOpen);
   };
   const addAccount = () => {
     navigate("/create");
@@ -65,7 +74,7 @@ function Header() {
           position={Position.TOP_RIGHT}
           content={
             <Menu>
-              <Menu.Item icon={SwapHorizontalIcon} onClick={changeAccount}>
+              <Menu.Item icon={SwapHorizontalIcon} onClick={toggleChangeAccountDialog}>
                 Change Account
               </Menu.Item>
               <Menu.Item icon={AddIcon} onClick={addAccount}>
@@ -80,6 +89,11 @@ function Header() {
           <MenuIcon style={styles.menuIcon}></MenuIcon>
         </Popover>
       ) : null}
+
+      <AccountSelectionDialog
+        isOpen={isSelectAccountOpen!}
+        closeDialog={toggleChangeAccountDialog}
+      />
     </header>
   );
 }
