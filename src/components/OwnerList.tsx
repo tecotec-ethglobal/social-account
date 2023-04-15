@@ -1,9 +1,28 @@
 import React, { useState } from "react";
+import Address from "./Address";
+import { Button, TextInput, TrashIcon } from "evergreen-ui";
 
 type OwnerListProp = {
   owners: string[];
   selfAddress: string;
   setOwners: (owners: string[]) => void;
+};
+
+const ownerListStyles = {
+  ownerList: {
+    textAlign: "left" as "left", // https://github.com/cssinjs/jss/issues/1344
+  },
+  owners: {
+    marginBottom: "1em",
+    display: "flex",
+    flexDirection: "column" as "column",
+    gap: "0.5em",
+  },
+  addOwner: {
+    display: "grid",
+    gridTemplateColumns: "1fr auto",
+    gap: "1em",
+  },
 };
 
 function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
@@ -14,6 +33,7 @@ function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
   };
   const addOwner = () => {
     if (!newOwner) return;
+    if (newOwner.length !== 42) return;
     setOwners([...owners, newOwner]);
     setNewOwner("");
   };
@@ -24,8 +44,9 @@ function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
   };
 
   return (
-    <div className="owner-list">
-      <div className="owners">
+    <div className="owner-list" style={ownerListStyles.ownerList}>
+      <h4>Owners</h4>
+      <div className="owners" style={ownerListStyles.owners}>
         {owners.map((address, idx) => (
           <Owner
             key={address}
@@ -37,8 +58,10 @@ function OwnerList({ owners, selfAddress, setOwners }: OwnerListProp) {
         ))}
       </div>
 
-      <input type="text" value={newOwner} onChange={newOwnerInputHandler} />
-      <button onClick={addOwner}>add Owner</button>
+      <div className="add-owner" style={ownerListStyles.addOwner}>
+        <TextInput value={newOwner} onChange={newOwnerInputHandler} />
+        <Button onClick={addOwner}>Add Owner</Button>
+      </div>
     </div>
   );
 }
@@ -55,23 +78,33 @@ const ownerStyle = {
     display: "flex",
     flexDirection: "row" as "row", // https://github.com/cssinjs/jss/issues/1344
     gap: "1em",
+    position: "relative" as "relative",
   },
   you: {
-    width: "5em",
+    width: "3em",
+  },
+  remove: {
+    position: "absolute" as "absolute",
+    right: "0",
+    top: "50%",
+    transform: "translateY(-50%)",
+    cursor: "pointer",
   },
 };
 
 function Owner({ address, ownerIndex, isSelf, removeOwner }: OwnerProp) {
   return (
     <div className="owner" style={ownerStyle.owner}>
-      <span className="you" style={ownerStyle.you}>
+      <div className="you" style={ownerStyle.you}>
         {isSelf && "YOU"}
-      </span>
-      <span className="address">{address}</span>
+      </div>
+      <Address address={address} />
       {!isSelf && (
-        <span className="remove" onClick={() => removeOwner(ownerIndex)}>
-          X
-        </span>
+        <TrashIcon
+          className="remove"
+          onClick={() => removeOwner(ownerIndex)}
+          style={ownerStyle.remove}
+        />
       )}
     </div>
   );
