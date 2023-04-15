@@ -13,10 +13,7 @@ const styles = {
   },
   form: {
     paddingBlock: "30px",
-    textAlign: "left",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "stretch",
+    textAlign: "left" as "left",
   },
 };
 
