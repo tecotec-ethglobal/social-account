@@ -5,6 +5,7 @@ function Login() {
   const navigate = useNavigate();
 
   const login = () => {
+    // TODO: use Authkit to get signer, authData etc. from user social
     navigate("/action");
   };
 

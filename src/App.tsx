@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { AppContextProvider } from "./components/AppContext";
 import Home from "./components/Home";
 import ContextDemo from "./components/ContextDemo";
 import Demo2 from "./components/Demo2";
-import { AppContextProvider } from "./components/AppContext";
-
 import Login from "./components/Login";
 import AccountAction from "./components/AccountAction";
+import AccountCreation from "./components/AccountCreation";
 
 import "./App.css";
 
@@ -21,10 +21,10 @@ function App() {
           <Route path="/demo2" element={<Demo2 />} />
           <Route path="/login" element={<Login />} />
           <Route path="/action" element={<AccountAction />} />
-          {/* <Route path="/create" element={} />
-          <Route path="/contract" element={} />
-          <Route path="/transfer" element={} />
-          <Route path="/change-owner" element={} /> */}
+          <Route path="/create" element={<AccountCreation />} />
+          {/* <Route path="/contract" element={} /> */}
+          {/* <Route path="/transfer" element={} /> */}
+          {/* <Route path="/change-owner" element={} /> */}
         </Routes>
       </BrowserRouter>
     </AppContextProvider>
