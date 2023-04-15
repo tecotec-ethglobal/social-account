@@ -2,20 +2,23 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./components/Home";
+import ContextDemo from "./components/ContextDemo";
 import Demo2 from "./components/Demo2";
-import Demo1 from "./components/Demo1";
+import { AppContextProvider } from "./components/AppContext";
 
 import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/demo1" element={<Demo1 />} />
-        <Route path="/demo2" element={<Demo2 />} />
-      </Routes>
-    </BrowserRouter>
+    <AppContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/context-demo" element={<ContextDemo />} />
+          <Route path="/demo2" element={<Demo2 />} />
+        </Routes>
+      </BrowserRouter>
+    </AppContextProvider>
   );
 }
 
