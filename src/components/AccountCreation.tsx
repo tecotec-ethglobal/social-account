@@ -4,6 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "./AppContext";
 import OwnerList from "./OwnerList";
+import { Button } from "evergreen-ui";
+
+const styles = {
+  display: "flex",
+  flexDirection: "column" as "column",
+  gap: "2em",
+  alignItems: "center",
+};
 
 function AccountCreation() {
   const navigate = useNavigate();
@@ -24,7 +32,7 @@ function AccountCreation() {
   };
 
   return (
-    <main>
+    <main style={styles}>
       <h1>Create your account</h1>
 
       <OwnerList
@@ -33,7 +41,7 @@ function AccountCreation() {
         setOwners={setOwners}
       />
 
-      <button onClick={deployContract}>Deploy Contract</button>
+      <Button onClick={deployContract}>Deploy Contract</Button>
     </main>
   );
 }
