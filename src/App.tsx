@@ -13,11 +13,13 @@ import PrivateRouteWrapper from "./components/PrivateRouterWrapper";
 import Transfer from "./components/Transfer";
 
 import "./App.css";
+import Header from "./components/Header";
 
 function App() {
   return (
     <AppContextProvider>
       <BrowserRouter>
+        <Header />
         <Routes>
           {/* ログイン必須 */}
           <Route element={<PrivateRouteWrapper />}>
@@ -28,10 +30,9 @@ function App() {
             {/* <Route path="/change-owner" element={} /> */}
           </Route>
 
-          <Route path="/" element={<Home />} />
           <Route path="/context-demo" element={<ContextDemo />} />
           <Route path="/demo2" element={<Demo2 />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </AppContextProvider>

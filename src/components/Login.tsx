@@ -7,6 +7,16 @@ import { ethers } from "ethers";
 
 import { web3AuthOptions, modalConfig, openLoginAdapterOptions } from "../config/web3auth";
 import { AppContext } from "./AppContext";
+import { Button, Pane } from "evergreen-ui";
+
+const styles = {
+  outer: {
+    display: "flex",
+    flexFlow: "column",
+    height: "100%",
+    minHeight: "100vh",
+  },
+};
 
 function Login() {
   const navigate = useNavigate();
@@ -44,11 +54,12 @@ function Login() {
   };
 
   return (
-    <main>
-      <h1>Wallet-app</h1>
-      <p>○○Contract?</p>
+    <main style={styles.outer}>
+      <span>Let's create Smart Account without wallet app!</span>
 
-      <button onClick={login}>Login</button>
+      <Button size="large" onClick={login}>
+        Login
+      </Button>
     </main>
   );
 }
