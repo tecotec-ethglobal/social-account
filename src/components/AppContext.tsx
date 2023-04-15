@@ -11,8 +11,6 @@ type AppContextType = {
   setSafeAuthKit: (safeAuthKit: any) => void;
   ethAdapter?: any;
   setEthAdapter: (ethAdapter: any) => void;
-  isSelectAccountOpen?: boolean;
-  setIsSelectAccountOpen: (isSelectAccountOpen: boolean) => void;
 };
 type AppContextProviderProp = {
   children: JSX.Element;
@@ -24,7 +22,6 @@ const AppContext = createContext<AppContextType>({
   isLoggedIn: () => false,
   setSafeAuthKit: () => {},
   setEthAdapter: () => {},
-  setIsSelectAccountOpen: () => {},
 });
 
 function AppContextProvider({ children }: AppContextProviderProp) {
@@ -37,7 +34,6 @@ function AppContextProvider({ children }: AppContextProviderProp) {
 
     return !!(safeAuthKit as any).safeAuthData;
   };
-  const [isSelectAccountOpen, setIsSelectAccountOpen] = useState(false);
 
   return (
     <AppContext.Provider
@@ -51,8 +47,6 @@ function AppContextProvider({ children }: AppContextProviderProp) {
         setSafeAuthKit,
         ethAdapter,
         setEthAdapter,
-        isSelectAccountOpen,
-        setIsSelectAccountOpen,
       }}
     >
       {children}

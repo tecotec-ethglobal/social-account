@@ -26,10 +26,11 @@ function AccountSelectionDialog({ isOpen = false, closeDialog }: AccountSelectio
       onCloseComplete={closeDialog}
       hasClose={true}
       hasCancel={false}
+      confirmLabel="Cancel"
     >
       <Pane style={styles}>
         {safeAuthKit.safeAuthData.safes.map((address: string) => (
-          <Account address={address} key={address} />
+          <Account address={address} key={address} closeDialog={closeDialog} />
         ))}
       </Pane>
     </Dialog>
@@ -38,14 +39,16 @@ function AccountSelectionDialog({ isOpen = false, closeDialog }: AccountSelectio
 
 type AccountProp = {
   address: string;
+  closeDialog: () => void;
 };
 
-function Account({ address }: AccountProp) {
+function Account({ address, closeDialog }: AccountProp) {
   const navigate = useNavigate();
   const { setContractAddress } = useContext(AppContext);
 
   const selectAccount = () => {
     setContractAddress(address);
+    closeDialog();
     navigate(`/safe-account/${address}`);
   };
 

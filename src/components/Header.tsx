@@ -7,7 +7,7 @@ import {
   Position,
   SwapHorizontalIcon,
 } from "evergreen-ui";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./AppContext";
 import AccountSelectionDialog from "./AccountSelectionDialog";
@@ -36,16 +36,9 @@ const styles = {
 
 function Header() {
   const navigate = useNavigate();
-  const {
-    safeAuthKit,
-    setSigner,
-    setEthAdapter,
-    setContractAddress,
-    setSafeAuthKit,
-    isLoggedIn,
-    isSelectAccountOpen,
-    setIsSelectAccountOpen,
-  } = useContext(AppContext);
+  const { safeAuthKit, setSigner, setEthAdapter, setContractAddress, setSafeAuthKit, isLoggedIn } =
+    useContext(AppContext);
+  const [isSelectAccountOpen, setIsSelectAccountOpen] = useState(false);
 
   const toggleChangeAccountDialog = () => {
     setIsSelectAccountOpen(!isSelectAccountOpen);
