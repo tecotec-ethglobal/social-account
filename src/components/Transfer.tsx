@@ -9,10 +9,10 @@ import { Button, Dialog, Overlay, Pane, Spinner, TextInputField } from "evergree
 
 const styles = {
   outer: {
-    minWidth: "440px",
+    minWidth: "380px",
   },
   form: {
-    padding: "30px 40px",
+    padding: "30px 10px",
     textAlign: "left",
   },
 };
@@ -85,7 +85,7 @@ function Transfer() {
         Confirm
       </Button>
       <Dialog
-        width={"500px"}
+        width={"380px"}
         isShown={isShown}
         title="Confirmation"
         onConfirm={submit}
