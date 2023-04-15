@@ -69,7 +69,7 @@ function SafeAccount() {
 
       console.log(transactions);
     })();
-  }, []);
+  }, [safeAddress]);
 
   return (
     <main>
