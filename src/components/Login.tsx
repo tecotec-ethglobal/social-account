@@ -10,7 +10,7 @@ import { AppContext } from "./AppContext";
 
 function Login() {
   const navigate = useNavigate();
-  const { setSafeAuthKit, setSafeAuthData, setEthAdapter } = useContext(AppContext);
+  const { setSafeAuthKit, setEthAdapter } = useContext(AppContext);
 
   const login = async () => {
     // Create an instance of the Web3AuthAdapter
@@ -37,7 +37,6 @@ function Login() {
     // save to context
     setEthAdapter(ethAdapter);
     setSafeAuthKit(safeAuthKit);
-    setSafeAuthData(safeAuthKit.safeAuthData);
 
     console.log(safeAuthKit.safeAuthData);
 

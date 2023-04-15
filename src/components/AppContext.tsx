@@ -1,3 +1,4 @@
+import { SafeAuthKit } from "@safe-global/auth-kit";
 import { createContext, useState } from "react";
 
 type AppContextType = {
@@ -5,9 +6,7 @@ type AppContextType = {
   setSigner: (signer: any) => void;
   contractAddress?: any;
   setContractAddress: (contractAddress: any) => void;
-  safeAuthData?: any;
   isLoggedIn: () => boolean;
-  setSafeAuthData: (safeAuthData: any) => void;
   safeAuthKit?: any;
   setSafeAuthKit: (safeAuthKit: any) => void;
   ethAdapter?: any;
@@ -21,7 +20,6 @@ const AppContext = createContext<AppContextType>({
   setSigner: () => {},
   setContractAddress: () => {},
   isLoggedIn: () => false,
-  setSafeAuthData: () => {},
   setSafeAuthKit: () => {},
   setEthAdapter: () => {},
 });
@@ -29,10 +27,13 @@ const AppContext = createContext<AppContextType>({
 function AppContextProvider({ children }: AppContextProviderProp) {
   const [signer, setSigner] = useState(undefined);
   const [contractAddress, setContractAddress] = useState(undefined);
-  const [safeAuthData, setSafeAuthData] = useState(undefined);
   const [safeAuthKit, setSafeAuthKit] = useState(undefined);
   const [ethAdapter, setEthAdapter] = useState(undefined);
-  const isLoggedIn = () => !!safeAuthData;
+  const isLoggedIn = () => {
+    if (!safeAuthKit) return false;
+
+    return !!(safeAuthKit as any).safeAuthData;
+  };
 
   return (
     <AppContext.Provider
@@ -41,9 +42,7 @@ function AppContextProvider({ children }: AppContextProviderProp) {
         setSigner,
         contractAddress,
         setContractAddress,
-        safeAuthData,
         isLoggedIn,
-        setSafeAuthData,
         safeAuthKit,
         setSafeAuthKit,
         ethAdapter,
