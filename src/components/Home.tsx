@@ -4,7 +4,7 @@ import { SafeAuthKit, Web3AuthAdapter } from "@safe-global/auth-kit";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { CHAIN_NAMESPACES } from "@web3auth/base";
-import { EthersAdapter, SafeFactory } from "@safe-global/protocol-kit";
+import Safe, { EthersAdapter, SafeFactory } from "@safe-global/protocol-kit";
 import { ethers } from "ethers";
 
 class Home extends Component {
@@ -15,7 +15,7 @@ class Home extends Component {
       web3AuthNetwork: "testnet",
       chainConfig: {
         chainNamespace: "eip155",
-        chainId: "0x13881",
+        chainId: "0x5",
       },
     };
 
@@ -39,9 +39,15 @@ class Home extends Component {
     const web3AuthAdapter = new Web3AuthAdapter(options, [openloginAdapter], modalConfig);
 
     // Create an instance of the SafeAuthKit using the adapter and the SafeAuthConfig allowed options
-    const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter);
+    const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter, {
+      txServiceUrl: "https://safe-transaction-goerli.safe.global/",
+    });
+
+    console.log(safeAuthKit);
 
     await safeAuthKit.signIn();
+
+    console.log(safeAuthKit);
 
     const provider = new ethers.providers.Web3Provider(safeAuthKit.getProvider()!);
     const signer = provider.getSigner(0);
