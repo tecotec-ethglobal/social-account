@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import AccountSelectionDialog from "./AccountSelectionDialog";
 import { AppContext } from "./AppContext";
+import Address from "./Address";
 
 function AccountAction() {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ function AccountAction() {
 
   return (
     <main>
-      <h1>Your Address: {safeAuthKit.safeAuthData.eoa}</h1>
+      <h1>
+        Your Address: <Address address={safeAuthKit.safeAuthData.eoa} />
+      </h1>
 
       <button onClick={toggleSelectAccountDialog}>Select Account</button>
       <button onClick={createAccount}>Create Account</button>

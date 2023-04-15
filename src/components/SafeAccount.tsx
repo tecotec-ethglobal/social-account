@@ -14,6 +14,7 @@ import SafeApiKit, {
 } from "@safe-global/api-kit";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "./AppContext";
+import Address from "./Address";
 
 function SafeAccount() {
   const { safeAddress } = useParams();
@@ -53,7 +54,9 @@ function SafeAccount() {
 
   return (
     <div className="safeAccount">
-      <div>{safeAddress}</div>
+      <div>
+        <Address address={safeAddress!} />
+      </div>
       <div>{balance} GoerliETH</div>
       <button onClick={() => navigate(`/transfer/${safeAddress}`)}>Transfer</button>
       <button>Owners</button>
@@ -63,14 +66,14 @@ function SafeAccount() {
             if (t.to === safeAddress) {
               return (
                 <li key={t.txHash}>
-                  Receive {t.executionDate} from: {t.from} +{" "}
+                  Receive {t.executionDate} from: <Address address={t.from} /> +{" "}
                   {ethers.utils.formatEther(t.transfers[0].value)}
                 </li>
               );
             } else {
               return (
                 <li key={t.txHash}>
-                  Send {t.executionDate} to: {t.to} -{" "}
+                  Send {t.executionDate} to: <Address address={t.to} /> -{" "}
                   {ethers.utils.formatEther(t.transfers[0].value)}
                 </li>
               );
@@ -79,13 +82,15 @@ function SafeAccount() {
             if (t.to === safeAddress) {
               return (
                 <li key={t.safeTxHash}>
-                  Receive {t.executionDate} from: {t.executor} + {ethers.utils.formatEther(t.value)}
+                  Receive {t.executionDate} from: <Address address={t.executor} /> +{" "}
+                  {ethers.utils.formatEther(t.value)}
                 </li>
               );
             } else {
               return (
                 <li key={t.safeTxHash}>
-                  Send {t.executionDate} to: {t.to} - {ethers.utils.formatEther(t.value)}
+                  Send {t.executionDate} to: <Address address={t.to} /> -{" "}
+                  {ethers.utils.formatEther(t.value)}
                 </li>
               );
             }

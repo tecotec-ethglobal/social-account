@@ -3,6 +3,7 @@ import { Dialog, Pane } from "evergreen-ui";
 import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "./AppContext";
+import Address from "./Address";
 
 const styles = {
   color: "black",
@@ -54,7 +55,7 @@ function Account({ address, closeDialog }: AccountProp) {
 
   return (
     <div className="account" onClick={selectAccount}>
-      {address}
+      <Address address={address} />
     </div>
   );
 }
