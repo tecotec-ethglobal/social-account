@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import AccountSelectionDialog from "./AccountSelectionDialog";
+import { AppContext } from "./AppContext";
 
 function AccountAction() {
   const navigate = useNavigate();
-  const [eoaAddress, setEoaAddress] = useState("0x123123123"); // TODO: change this to use safeAuthData
+  const { safeAuthKit } = useContext(AppContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const toggleSelectAccountDialog = () => {
@@ -17,12 +18,12 @@ function AccountAction() {
 
   return (
     <main>
-      <h1>Your Address: {eoaAddress}</h1>
+      <h1>Your Address: {safeAuthKit.safeAuthData.eoa}</h1>
 
       <button onClick={toggleSelectAccountDialog}>Select Account</button>
       <button onClick={createAccount}>Create Account</button>
 
-      <AccountSelectionDialog isOpen={isDialogOpen} />
+      <AccountSelectionDialog isOpen={isDialogOpen} closeDialog={toggleSelectAccountDialog} />
     </main>
   );
 }
