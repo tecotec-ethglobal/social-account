@@ -10,6 +10,7 @@ import AccountAction from "./components/AccountAction";
 import AccountCreation from "./components/AccountCreation";
 import SafeAccount from "./components/SafeAccount";
 import PrivateRouteWrapper from "./components/PrivateRouterWrapper";
+import Transfer from "./components/Transfer";
 
 import "./App.css";
 
@@ -23,7 +24,7 @@ function App() {
             <Route path="/action" element={<AccountAction />} />
             <Route path="/create" element={<AccountCreation />} />
             <Route path="/safe-account/:safeAddress" element={<SafeAccount />} />
-            {/* <Route path="/transfer" element={} /> */}
+            <Route path="/transfer/:safeAddress" element={<Transfer />} />
             {/* <Route path="/change-owner" element={} /> */}
           </Route>
 
