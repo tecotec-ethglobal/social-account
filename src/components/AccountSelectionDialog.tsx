@@ -20,7 +20,7 @@ function AccountSelectionDialog({ isOpen = false, closeDialog }: AccountSelectio
       <h4>select your account:</h4>
 
       {safeAuthKit.safeAuthData.safes.map((address: string) => (
-        <Account address={address} />
+        <Account address={address} key={address} />
       ))}
 
       <button onClick={closeDialog}>Close</button>
