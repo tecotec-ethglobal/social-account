@@ -9,11 +9,14 @@ import { Button, Dialog, Overlay, Pane, Spinner, TextInputField } from "evergree
 
 const styles = {
   outer: {
-    minWidth: "380px",
+    minWidth: "360px",
   },
   form: {
-    padding: "30px 10px",
+    paddingBlock: "30px",
     textAlign: "left",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
   },
 };
 

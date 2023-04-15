@@ -12,6 +12,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    paddingInline: "1em",
   },
 };
 
