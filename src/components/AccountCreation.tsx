@@ -6,7 +6,6 @@ import { AppContext } from "./AppContext";
 import OwnerList from "./OwnerList";
 
 function AccountCreation() {
-  console.log("update!");
   const navigate = useNavigate();
   const { ethAdapter, safeAuthKit, setContractAddress } = useContext(AppContext);
   const [owners, setOwners] = useState([safeAuthKit.safeAuthData?.eoa]);
@@ -21,7 +20,7 @@ function AccountCreation() {
     }); //5
     const address = safeSdk.getAddress();
     setContractAddress(address);
-    navigate(`/contract${address}`);
+    navigate(`/safe-account/${address}`);
   };
 
   return (
