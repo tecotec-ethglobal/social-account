@@ -62,7 +62,7 @@ function Header() {
   // TODO: create form
   return (
     <header style={styles.header}>
-      <span style={styles.headerText}>Smart Account</span>
+      <span style={styles.headerText}>Social Account</span>
       {isLoggedIn() ? (
         <Popover
           position={Position.TOP_RIGHT}
