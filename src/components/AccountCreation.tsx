@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "./AppContext";
 import OwnerList from "./OwnerList";
-import { Button } from "evergreen-ui";
+import { Button, Dialog, Overlay, Spinner } from "evergreen-ui";
 
 const styles = {
   display: "flex",
@@ -17,8 +17,12 @@ function AccountCreation() {
   const navigate = useNavigate();
   const { ethAdapter, safeAuthKit, setContractAddress } = useContext(AppContext);
   const [owners, setOwners] = useState([safeAuthKit.safeAuthData?.eoa]);
+  const [isShown, setIsShown] = React.useState(false);
+  const [showSpinner, setShowSpinner] = React.useState(false);
 
   const deployContract = async () => {
+    setShowSpinner(true);
+
     const safeFactory = await SafeFactory.create({ ethAdapter });
     const safeSdk: Safe = await safeFactory.deploySafe({
       safeAccountConfig: {
@@ -28,6 +32,10 @@ function AccountCreation() {
     }); //5
     const address = safeSdk.getAddress();
     setContractAddress(address);
+
+    setShowSpinner(false);
+    setIsShown(false);
+
     navigate(`/safe-account/${address}`);
   };
 
@@ -41,7 +49,22 @@ function AccountCreation() {
         setOwners={setOwners}
       />
 
-      <Button onClick={deployContract}>Deploy Contract</Button>
+      <Button onClick={() => setIsShown(true)}>Deploy Contract</Button>
+      <Dialog
+        width={"380px"}
+        isShown={isShown}
+        title="Confirmation"
+        onConfirm={deployContract}
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Execute"
+      >
+        <p>Deploy contract.</p>
+        {showSpinner && (
+          <Overlay isShown={showSpinner}>
+            <Spinner marginX="auto" marginY={150} />
+          </Overlay>
+        )}
+      </Dialog>
     </main>
   );
 }

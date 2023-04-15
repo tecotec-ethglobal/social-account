@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { AppContext } from "./AppContext";
 import OwnerList from "./OwnerList";
+import { Dialog, Overlay, Spinner } from "evergreen-ui";
 
 function OwnersEdit() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function OwnersEdit() {
   const [initialOwners, setInitialOwners] = useState<string[]>([]);
   const [owners, setOwners] = useState<string[]>([]);
   const [safeSdk, setSafeSdk] = useState<Safe>();
+  const [isShown, setIsShown] = React.useState(false);
+  const [showSpinner, setShowSpinner] = React.useState(false);
 
   useEffect(() => {
     (async () => {
@@ -25,6 +28,8 @@ function OwnersEdit() {
   }, []);
 
   const updateOwners = async () => {
+    setShowSpinner(true);
+
     const deletedOwners = initialOwners.filter((o) => !owners.includes(o));
     for (let owner of deletedOwners) {
       const safeTransaction = await safeSdk!.createRemoveOwnerTx({
@@ -44,7 +49,8 @@ function OwnersEdit() {
       await safeSdk!.executeTransaction(safeTransaction);
     }
 
-    navigate(`/safe-account/${safeAddress}`);
+    setShowSpinner(false);
+    setIsShown(false);
   };
 
   return (
@@ -57,7 +63,22 @@ function OwnersEdit() {
         setOwners={setOwners}
       />
 
-      <button onClick={updateOwners}>Update Owners</button>
+      <button onClick={() => setIsShown(true)}>Update Owners</button>
+      <Dialog
+        width={"380px"}
+        isShown={isShown}
+        title="Confirmation"
+        onConfirm={updateOwners}
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Execute"
+      >
+        <p>Update the owners.</p>
+        {showSpinner && (
+          <Overlay isShown={showSpinner}>
+            <Spinner marginX="auto" marginY={150} />
+          </Overlay>
+        )}
+      </Dialog>
     </main>
   );
 }
