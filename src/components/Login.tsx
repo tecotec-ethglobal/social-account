@@ -50,7 +50,12 @@ function Login() {
 
     console.log(safeAuthKit.safeAuthData);
 
-    navigate("/action");
+    if (safeAuthKit.safeAuthData?.safes?.length === 0) {
+      navigate("/create");
+    } else {
+      const safeAddress = safeAuthKit.safeAuthData?.safes![0]!;
+      navigate(`/safe-account/${safeAddress}`);
+    }
   };
 
   return (
