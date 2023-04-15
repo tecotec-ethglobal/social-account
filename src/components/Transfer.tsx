@@ -41,7 +41,7 @@ function Transfer() {
       setSafeSdk(safeSdk);
       setBalance(ethers.utils.formatEther(await safeSdk.getBalance()));
     })();
-  }, []);
+  }, [safeAddress]);
 
   function confirm() {
     const _safeTransactionData: SafeTransactionDataPartial = {

@@ -32,7 +32,7 @@ function OwnersEdit() {
       setInitialOwners(_owners);
       setOwners(_owners);
     })();
-  }, []);
+  }, [safeAddress]);
 
   const updateOwners = async () => {
     setShowSpinner(true);
